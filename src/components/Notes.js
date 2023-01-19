@@ -6,7 +6,7 @@ import Note from './Note'
 const Notes = () => {
 
     const {notes} = useContext(NotesContext)
-    // console.log('State',notes)
+
 
   return (
     <div className="notes">

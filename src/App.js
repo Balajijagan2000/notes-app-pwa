@@ -10,6 +10,7 @@ function App() {
       <NotesContextProvider>
 
         <NavBar />
+
         <Notes />
 
       </NotesContextProvider>

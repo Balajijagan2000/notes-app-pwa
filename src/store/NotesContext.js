@@ -10,6 +10,8 @@ export const NotesContextProvider = ({children}) => {
     const [state,dispatch]= useReducer(notesReducer,initialState)
     
     const addNote = (note) =>{
+
+        
         const updatednotes = {
             notes: [note,...state.notes]
         }
@@ -30,14 +32,44 @@ export const NotesContextProvider = ({children}) => {
         })
     }
 
+    const updateNote = (id,newnote) => {
+      
+        const updatednotes = state.notes;
+        state.notes.forEach(note => {
+            if(note.id === id) {
+                note.text = newnote.text
+            }
+        });
+ 
+
+        dispatch( {
+            type: 'UPDATE_NOTE',
+            payload:{notes:updatednotes} 
+        })
+    }
+
+    const updateFormData = ({id,text,title},action) => {
+
+        const formdata = {id,text,title,action:action}
+        dispatch(
+            {
+            type:'UPDATE_FORM_DATA',
+            payload:{formdata:formdata}
+        }
+        )
+    }
     const value = {
         notes:state.notes,
+        formdata:state.formdata,
         addNote,
-        deleteNote
+        deleteNote,
+        updateNote,
+        updateFormData
     }
     return (
         <NotesContext.Provider value={value}>
             {children}
+            
         </NotesContext.Provider>
     )
 

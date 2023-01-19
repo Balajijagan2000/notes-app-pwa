@@ -1,29 +1,53 @@
-import React, { useContext ,useState} from 'react'
+import React, { useContext ,useEffect,useState} from 'react'
+
 import NotesContext from '../store/NotesContext'
 
-function AddNote() {
+function AddNote(prop) {
   
-  
+  const {notes,addNote,formdata,updateNote,updateFormData} = useContext(NotesContext)
+ 
+
+  useEffect(() => {
+    setNote({
+      title:formdata.title,
+      text:formdata.text,})
+  },[formdata])
   const [note,setNote] = useState({
    
-    title:'',
-    text:'',
+   
+    title:formdata.title,
+    text:formdata.text,
     
   })
+ 
 
-  const {notes,addNote} = useContext(NotesContext)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const timestamp = new Date()
+    if(formdata.action === 'ADD') {
+      const timestamp = new Date()
     const timestamFormat = new Intl.DateTimeFormat('en-us', {
       dateStyle:'medium',
       timeStyle:'short'
     })
 
-    console.log(note)
+
     const id = notes.length === 0 ? 1 : notes[0].id + 1 
+    if(note.text.trim() === '' || note.title.trim() === '') {
+      alert('Fields should not be empty')
+      setNote({title:'',text:''})
+      return
+
+    }
     addNote({id,...note,created:timestamFormat.format(timestamp)})
+    setNote({title:'',text:''})
+    } else if(formdata.action === 'UPDATE') {
+
+      updateNote(formdata.id,{...note})
+      const dummy = {id:'',text:'',title:''}
+      updateFormData(dummy,'ADD')
+    }
+    
   }
   return (
    
@@ -32,15 +56,17 @@ function AddNote() {
         className="title"
         name="title" 
         value={note.title} 
-        onChange={(e) => setNote({...note,title:e.target.value})} />
+        onChange={(e) => setNote({...note,title:e.target.value})} 
+        required
+        />
 
         <textarea placeholder="Enter text here"
         className="text"
         name="text"
         onChange={(e) => setNote({...note,text:e.target.value})}
         value={note.text}
-        ></textarea>
-        <button type="submit">+</button>
+        required></textarea>
+        <button type="submit">{formdata.action === 'ADD' ? '+' : 'U'}</button>
       </form>
    
   )
