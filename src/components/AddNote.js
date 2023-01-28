@@ -58,6 +58,7 @@ function AddNote(prop) {
         value={note.title} 
         onChange={(e) => setNote({...note,title:e.target.value})} 
         required
+        disabled={formdata.action === 'UPDATE' ? true : false}
         />
 
         <textarea placeholder="Enter text here"

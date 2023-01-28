@@ -4,6 +4,12 @@
   --secondary: #36454F;
   --light: rgb(250, 248, 245);
   --lighter:  rgba(250, 248, 245,.7);
+
+  /* --bg: white;
+  --primary:#FFFAF0;
+  --secondary: #36454F;
+  --light: #36454F;
+  --lighter:  rgba(0, 0, 0,.5); */
 }
 * {
   box-sizing: border-box;
@@ -18,12 +24,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
-  background-color: var(--bg);
+  height: 100vh;
+  
 }
-
+#root {
+  height: 100%;
+}
+.container {
+  background-color: var(--bg);
+  height: 100%;
+  
+}
+.container.light {
+  --bg: white;
+}
 header {
   background-color: azure;
-  height: 50px;
+  height: 60px;
   width: 100%;
   padding: .7em;
   border-bottom: 1px solid black;
@@ -32,22 +49,9 @@ header {
   justify-content: space-between;
 }
 
-/* .add-note form{
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-} */
 
-/* .notes {
-  margin: 1em auto;
-  width: 480px;
-  height: 100%;
 
-  display: grid;
-  gap: 1em;
-  grid-template-columns: repeat(auto-fill,minmax(min-content,max-content));
-  grid-template-rows: repeat(auto,minmax(150px,max-content));
-} */
+
 
 .notes {
   margin: 1em auto;
@@ -57,9 +61,11 @@ header {
   padding: .8em;
   display: grid;
   gap: .8em;
+  
 
   grid-template-columns: repeat(2,1fr); 
   grid-template-rows: repeat(auto,minmax(150px,max-content));
+  place-content: start;
   
 }
 
@@ -82,8 +88,15 @@ header {
   word-wrap: break-word;
   color: var(--light);
   background-color: var(--primary);
+
   
   
+  
+}
+.light .note {
+  --primary:#FFFAF0;
+  --light: #36454F;
+  box-shadow: 2px 3px 10px rgba(0,0,0,.3);
 }
 .note-body {
 
@@ -104,6 +117,9 @@ header {
   border-top: .2px solid var(--light);
   color: var(--lighter);
   padding: .2em;
+}
+.light .note-footer p {
+  --lighter:  rgba(0, 0, 0,.5);
 }
 .note .note-header {
   display: flex;
@@ -135,8 +151,13 @@ header {
 
   grid-column: 1 / -1;
   
+  
   background-color: var(--primary);
 
+}
+.light .add-note__form {
+  --primary:#FFFAF0;
+  --light: #36454F;
 }
 .add-note__form button{
   border:none;
@@ -150,6 +171,13 @@ header {
   cursor: pointer;
 
   margin-top: .2em;
+
+
+  background-color: skyblue;
+}
+.light .add-note__form button{
+  
+  background-color: #FDB750;
 }
 
 input[type="text"],.add-note__form textarea {
@@ -165,5 +193,45 @@ input[type="text"],.add-note__form textarea {
   resize: none;
 
   background-color: transparent;
+  --light: whitesmoke;
   color: var(--light);
+}
+.light input[type="text"],.light .add-note__form textarea {
+
+  --light: #36454F;
+
+  --lighter:  rgba(0, 0, 0,.5);
+}
+
+
+
+.toggle {
+  --light: var(--secondary);
+  color: var(--light);
+
+  font-size: 1.4rem;
+  background-color: #FDB750;
+  
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+ 
+  transition: all .7s ease;
+
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  
+  
+}
+.switch {
+ 
+
+ --light: white;
+  transform: rotate(360deg);
+  background-color: skyblue;
 }
