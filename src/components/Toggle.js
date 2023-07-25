@@ -4,12 +4,21 @@ import {BsSunFill,BsFillMoonFill} from 'react-icons/bs'
 const Toggle = () => {
    
     const {theme,setTheme} = useContext(ThemeContext)
+    
     const handleToggle = ()=> {
         setTheme(!theme)
-        document.querySelector('.toggle').classList.toggle('switch')
+        localStorage.setItem("theme",!theme)
+        if(theme) {
+          document.querySelector('.container').classList.remove('light')
+          document.querySelector('.toggle').classList.remove('switch')
+        } else {
+          document.querySelector('.container').classList.add('light')
+          document.querySelector('.toggle').classList.add('switch')
+        }
+        
     }
   return (
-    <div className="toggle" onClick={handleToggle}>
+    <div className={`toggle ${theme ? 'switch' : ''}`} onClick={handleToggle}>
         
             {
                 theme ? <BsFillMoonFill /> : <BsSunFill />

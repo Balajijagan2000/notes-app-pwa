@@ -5,7 +5,15 @@ import { useState } from 'react'
 const ThemeContext = createContext()
 
 export const ThemeContextProvider = ({children}) => {
-    const [theme,setTheme] = useState(false)
+    if(!localStorage.getItem("theme")) {
+        localStorage.setItem("theme",false)
+    }
+    const [theme,setTheme] = useState(
+
+        JSON.parse(localStorage.getItem("theme")) 
+        
+
+    )
 
     return <ThemeContext.Provider value={{theme,setTheme}}>
         {children}

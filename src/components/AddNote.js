@@ -68,6 +68,7 @@ function AddNote(prop) {
         value={note.text}
         required></textarea>
         <button type="submit">{formdata.action === 'ADD' ? '+' : 'U'}</button>
+        
       </form>
    
   )
